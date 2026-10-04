@@ -6,6 +6,6 @@ import { DB_CONFIG } from "../config/database.js";
 const connectionString = DB_CONFIG.DATABASE_URL;
 
 const adapter = new PrismaPg({ connectionString });
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({ adapter, log: ["query"] });
 
 export { prisma };
