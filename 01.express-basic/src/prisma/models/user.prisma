@@ -10,9 +10,11 @@ model User {
     password String     @db.VarChar(100)
     status   UserStatus @default(INACTIVE)
 
-    createdAt DateTime @default(now()) @db.Timestamptz()
-    updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz()
+    createdAt DateTime    @default(now()) @db.Timestamptz()
+    updatedAt DateTime    @default(now()) @updatedAt @db.Timestamptz()
     phones    Phone?
+    posts     Post[]
+    images    UserImage[]
 
     @@map("users")
 }
