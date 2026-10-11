@@ -1,7 +1,7 @@
 model Post {
     id        Int      @id @default(autoincrement())
-    title     String   @db.VarChar(200)
-    content   String
+    title     String   @db.VarChar(3)
+    content   String   @db.VarChar(3)
     userId    Int?
     user      User?    @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now()) @db.Timestamptz()

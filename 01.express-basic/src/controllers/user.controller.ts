@@ -45,6 +45,25 @@ export const userController = {
         const { id } = req.params;
         const data = await userService.updateImages(req.body, +id!);
         return res.json({ data })
+    },
+
+    async assignCourses(req: Request, res: Response) {
+        const body = req.body;
+        const { id } = req.params;
+        const data = await userService.assignCourses(+id!, body);
+        return res.json({ data });
+    },
+
+    async courses(req: Request, res: Response) {
+        const { id } = req.params;
+
+        const data = await userService.getCourses(+id!);
+        return res.json({ data });
+    },
+
+    async topUsers(req: Request, res: Response) {
+        const data = await userService.getTopUsers();
+        return res.json({ data })
     }
 
 }

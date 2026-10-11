@@ -31,8 +31,8 @@ export * from "./enums.js"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more UserImages
- * const userImages = await prisma.userImage.findMany()
+ * // Fetch zero or more Courses
+ * const courses = await prisma.course.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,6 +41,11 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
 /**
  * Model UserImage
  * 
@@ -56,6 +61,11 @@ export type Phone = Prisma.PhoneModel
  * 
  */
 export type Post = Prisma.PostModel
+/**
+ * Model UserCourse
+ * 
+ */
+export type UserCourse = Prisma.UserCourseModel
 /**
  * Model User
  * 

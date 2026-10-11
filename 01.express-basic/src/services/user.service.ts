@@ -246,6 +246,73 @@ export const userService = {
         //     })
         // ]);
 
+    },
+
+    async getCourses(id: number) {
+        return prisma.userCourse.findMany({
+            where: {
+                userId: id,
+                course: {
+                    name: {
+                        contains: 'HTML'
+                    }
+                }
+            },
+            include: {
+                course: true
+            }
+        })
+    },
+
+    async assignCourses(id: number, courseIds: number[]) {
+        return prisma.userCourse.createMany({
+            data: courseIds.map((courseId) => ({
+                userId: id,
+                courseId
+            }))
+        })
+    },
+
+    async getTopUsers() {
+
+        const countResult = await prisma.userCourse.groupBy({
+            by: ['userId'],
+            _count: {
+                id: true
+            },
+            take: 1,
+            orderBy: {
+                _count: {
+                    id: 'desc'
+                }
+            }
+        });
+
+        const maxCount = countResult[0]?._count.id;
+
+        const users = await prisma.userCourse.groupBy({
+            by: ['userId'],
+            _count: {
+                id: true
+            },
+            having: {
+                id: {
+                    _count: {
+                        equals: maxCount!
+                    }
+                }
+            }
+        })
+
+        const userIds = users.map(val => val.userId);
+
+        return prisma.user.findMany({
+            where: {
+                id: {
+                    in: userIds
+                }
+            }
+        })
     }
 
 }

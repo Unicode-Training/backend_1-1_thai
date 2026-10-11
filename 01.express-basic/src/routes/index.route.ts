@@ -16,6 +16,9 @@ router.patch('/users/:id/posts', userController.assignPost);
 router.patch('/users/:id/images', userController.images);
 router.get('/posts', postController.findAll);
 router.patch('/posts/:id', postController.update);
+router.post('/users/:id/courses', userController.assignCourses);
+router.get('/users/:id/courses', userController.courses);
+router.get('/top-users', userController.topUsers);
 
 router.use('/admin', authMiddleware, routerAdmin);
 

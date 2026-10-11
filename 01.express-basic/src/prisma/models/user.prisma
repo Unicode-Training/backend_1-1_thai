@@ -4,17 +4,17 @@ enum UserStatus {
 }
 
 model User {
-    id       Int        @id @default(autoincrement())
-    email    String     @unique @db.VarChar(100)
-    fullName String     @db.VarChar(30)
-    password String     @db.VarChar(100)
-    status   UserStatus @default(INACTIVE)
-
-    createdAt DateTime    @default(now()) @db.Timestamptz()
-    updatedAt DateTime    @default(now()) @updatedAt @db.Timestamptz()
-    phones    Phone?
-    posts     Post[]
-    images    UserImage[]
+    id          Int          @id @default(autoincrement())
+    email       String       @unique @db.VarChar(100)
+    name        String       @db.VarChar(50)
+    password    String       @db.VarChar(100)
+    status      UserStatus   @default(INACTIVE)
+    createdAt   DateTime     @default(now()) @db.Timestamptz()
+    updatedAt   DateTime     @default(now()) @updatedAt @db.Timestamptz()
+    phones      Phone?
+    posts       Post[]
+    images      UserImage[]
+    userCourses UserCourse[]
 
     @@map("users")
 }
