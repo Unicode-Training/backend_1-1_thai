@@ -51,7 +51,6 @@ Buổi sau:
 
 Sub Query, Group by, having
 
-
 ```
 users {
     id
@@ -60,3 +59,19 @@ users {
     savedBy: []
 }
 ```
+
+## Phân tích case
+
+- Khách hàng: Products -> 5000 sản phẩm
+- Database ban đầu: Cột status (0,1,2)
+
+* 0: Sản phẩm mới
+* 1: Sản phẩm bán chạy
+* 2: Sản phẩm nổi bật
+  => Sắp xếp: Nổi bật -> Bán chạy -> mới
+
+- Yêu cầu tính năng mới: Thêm trạng thái "Sắp ra mắt" -> Thêm status = 3
+  Sắp xếp: Sản phẩm sắp ra mắt -> Sản phẩm bán chạy -> Sản phẩm nổi bật -> Sản phẩm mới
+  => 3 -> 1 -> 2 -> 0
+
+Giải pháp là gì?
