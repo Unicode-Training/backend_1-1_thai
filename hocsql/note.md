@@ -75,3 +75,27 @@ users {
   => 3 -> 1 -> 2 -> 0
 
 Giải pháp là gì?
+
+## Transaction
+
+Bài toán:
+
+Cần chuỗi các công việc (Có điều kiện): Nếu tất cả thành công -> Thực thi (Commit), ngược lại: Khôi phục lại trạng thái ban đầu (Rollback)
+
+BEGIN;
+
+- Câu lệnh 1;
+- Câu lệnh 2;
+- Câu lệnh 3;
+
+Quyết định: rollback hay commit;
+
+- Lỗi cú pháp -> try catch -> Gửi rollback
+- Lỗi logic
+
+Không có lỗi gì -> Gửi commit
+
+1 số tình huống
+
+- Server backend sập khi lệnh commit, rollback chưa được gọi -> Khi backend kết nối lại -> rollback
+- Database sập -> Khi DB Server khởi động lại -> Quét logs -> Rollback
