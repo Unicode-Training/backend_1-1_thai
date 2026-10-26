@@ -1,0 +1,13 @@
+model UserCourse {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    courseId  Int
+    course    Course   @relation(fields: [courseId], references: [id])
+    isActive  Boolean  @default(true)
+    createdAt DateTime @default(now()) @db.Timestamptz()
+    updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+    @@unique([userId, courseId])
+    @@map("users_courses")
+}

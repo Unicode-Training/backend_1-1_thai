@@ -1,0 +1,11 @@
+model Phone {
+    id        Int      @id @default(autoincrement())
+    phone     String
+    status    Boolean  @default(true)
+    userId    Int      @unique
+    createdAt DateTime @default(now()) @db.Timestamptz()
+    updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz()
+    user      User     @relation(fields: [userId], references: [id])
+
+    @@map("phone")
+}

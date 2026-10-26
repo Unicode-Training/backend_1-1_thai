@@ -12,6 +12,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  redis:
+    image: redis
+    container_name: thai_redis
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - redisdata:/data
+
 volumes:
   pgdata:
+    driver: local
+  redisdata:
     driver: local
