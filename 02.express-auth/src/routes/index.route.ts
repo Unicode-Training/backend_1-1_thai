@@ -26,5 +26,8 @@ router.use('/admin', authMiddleware, routerAdmin);
 
 router.post('/auth/login', validate(loginSchema), authController.login);
 router.get('/auth/me', authMiddleware, authController.profile);
+router.delete('/auth/logout', authMiddleware, authController.logout);
+router.post('/auth/refresh-token', authController.refreshToken);
+router.delete('/auth/revoke', authMiddleware, authController.revoke);
 
 export default router;

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import "dotenv/config";
 import routerIndex from "./routes/index.route.js";
 import { loggingMiddleware } from "./middlewares/logging.middleware.js";

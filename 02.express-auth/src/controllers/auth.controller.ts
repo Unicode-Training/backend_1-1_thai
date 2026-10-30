@@ -16,5 +16,31 @@ export const authController = {
         return res.json({
             data: req.user
         });
+    },
+
+    async logout(req: Request, res: Response) {
+        const { jti, exp } = req;
+        await authService.logout(jti!, exp!);
+        return res.json({
+            success: true
+        });
+    },
+
+    async refreshToken(req: Request, res: Response) {
+        const { refreshToken } = req.body;
+        const data = await authService.refreshToken(refreshToken);
+        return res.json({
+            success: true,
+            data
+        })
+    },
+
+    async revoke(req: Request, res: Response) {
+        const userId = req.user?.id;
+        const data = await authService.revoke(userId!);
+        return res.json({
+            data,
+            success: true
+        })
     }
 }
