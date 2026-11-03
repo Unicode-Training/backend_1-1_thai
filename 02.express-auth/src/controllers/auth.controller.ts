@@ -19,8 +19,8 @@ export const authController = {
     },
 
     async logout(req: Request, res: Response) {
-        const { jti, exp } = req;
-        await authService.logout(jti!, exp!);
+        const { jti, exp, user } = req;
+        await authService.logout(jti!, exp!, user!.id);
         return res.json({
             success: true
         });

@@ -33,9 +33,10 @@ export const authService = {
         return token;
     },
 
-    async logout(jti: string, exp: number) {
+    async logout(jti: string, exp: number, userId: number) {
         const ttl = Math.ceil(exp - Date.now() / 1000);
         await redisClient.setex(`blacklist:${jti}`, ttl, 'true');
+        await redisClient.del(`refreshToken:${userId}:${jti}`);
     },
 
     async refreshToken(token: string) {
@@ -102,4 +103,17 @@ Khu thu hồi
 - Refresh Rotation
 - Fingerprint
 - Expire time ngắn
+
+Đặt logs:
+- Chia level: info, warning, error,....
+- Dùng middleware chung để bắt tất cả => Lưu vào file hoặc database khác (remote) -> Nhóm theo từng level
+- Lập lịch định kỳ dọn dẹp -> Giải phóng tài nguyên
+
+Frontend:
+- URL
+- METHOD
+- PAYLOAD
+- Headers: x-ip, authorization, user-agent, accept,...
+- status
+- response body
 */
