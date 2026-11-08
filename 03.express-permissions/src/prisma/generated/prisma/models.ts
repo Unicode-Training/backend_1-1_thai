@@ -8,7 +8,11 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Action.js'
+export type * from './models/ModuleAction.js'
+export type * from './models/Module.js'
 export type * from './models/Permission.js'
+export type * from './models/Post.js'
 export type * from './models/RolePermissions.js'
 export type * from './models/Role.js'
 export type * from './models/UserPermissions.js'

@@ -31,8 +31,8 @@ export * from "./enums.js"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Permissions
- * const permissions = await prisma.permission.findMany()
+ * // Fetch zero or more Actions
+ * const actions = await prisma.action.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -42,10 +42,30 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
+ * Model Action
+ * 
+ */
+export type Action = Prisma.ActionModel
+/**
+ * Model ModuleAction
+ * 
+ */
+export type ModuleAction = Prisma.ModuleActionModel
+/**
+ * Model Module
+ * 
+ */
+export type Module = Prisma.ModuleModel
+/**
  * Model Permission
  * 
  */
 export type Permission = Prisma.PermissionModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
 /**
  * Model RolePermissions
  * 

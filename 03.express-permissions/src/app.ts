@@ -5,6 +5,7 @@ import "dotenv/config";
 import routerIndex from "./routes/index.route.js";
 import { loggingMiddleware } from "./middlewares/logging.middleware.js";
 import { errorMiddleware, notFoundMiddleware } from "./middlewares/error.middleware.js";
+import { requestContextMiddleware } from "./middlewares/contextMiddleware.js";
 const app = express();
 
 app.use(morgan('dev'));
@@ -12,6 +13,8 @@ app.use(morgan('dev'));
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use(requestContextMiddleware);
 
 if (process.env.NODE_ENV === 'development') {
     app.use(cors());

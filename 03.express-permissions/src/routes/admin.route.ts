@@ -6,6 +6,7 @@ import { userRoleController } from "../controllers/admin/user-role.controller.js
 import { productController } from "../controllers/admin/product.controller.js";
 import { permissionMiddleware } from "../middlewares/permission.middleware.js";
 import { postController } from "../controllers/admin/post.controller.js";
+import { moduleController } from "../controllers/admin/module.controller.js";
 
 const router: Router = express.Router();
 
@@ -17,6 +18,7 @@ router.patch('/products/:id', permissionMiddleware('products.update'), productCo
 router.delete('/products/:id', permissionMiddleware('products.delete'), productController.delete);
 
 router.get('/posts', permissionMiddleware('posts.read'), postController.findAll);
+router.get('/posts/:id', permissionMiddleware('posts.read'), postController.find);
 router.post('/posts', permissionMiddleware('posts.create'), postController.create);
 router.patch('/posts/:id', permissionMiddleware('posts.update'), postController.update);
 router.delete('/posts/:id', permissionMiddleware('posts.delete'), postController.delete);
@@ -26,5 +28,6 @@ router.get('/roles', roleController.findAll);
 router.post('/roles', roleController.create);
 router.put('/roles/:id/permissions', roleController.assignPermissions);
 router.post('/roles/:id/users', userRoleController.create);
+router.get('/modules', moduleController.findAll);
 
 export default router;

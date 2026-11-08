@@ -1,74 +1,64 @@
+import { HttpException } from "../exceptions/http.exception.js";
 import { prisma } from "../lib/prisma.js"
+import { allowPost, filterByUser } from "../policy/post.policy.js";
 import { Post } from "../prisma/generated/prisma/client.js";
+
 export const postService = {
-    async findAll() {
-        // const keyword = 'user1';
+    findAll() {
         return prisma.post.findMany({
-            // where: {
-            //     user: {
-            //         email: {
-            //             contains: keyword
-            //         }
-            //     },
-            // },
-            include: {
-                user: {
-                    include: {
-                        phones: true
-                    }
-                }
+            where: {
+                ...filterByUser()
             }
-            // select: {
-            //     id: true,
-            //     title: true,
-            //     createdAt: true,
-            //     updatedAt: true,
-            //     user: {
-            //         select: {
-            //             fullName: true,
-            //             email: true,
-            //             phones: {
-            //                 select: {
-            //                     phone: true
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
         });
     },
-
-    async update(body: Post, id: number) {
+    async find(id: number) {
+        const data = await prisma.post.findUnique({
+            where:
+            {
+                id,
+                ...filterByUser()
+            }
+        });
+        if (!data) {
+            throw new HttpException("Post not found", 404);
+        }
+    },
+    create(data: Post, userId: number) {
+        return prisma.post.create({
+            data: {
+                ...data,
+                postedById: userId
+            }
+        })
+    },
+    async update(data: Post, id: number) {
+        const post = await prisma.post.findUnique({
+            where: { id }
+        });
+        if (!allowPost(post!)) {
+            throw new HttpException("Forbidden", 403);
+        }
         return prisma.post.update({
             where: {
-                id
+                id,
             },
-            data: {
-                // ...body,
-                user: {
-                    connect: {
-                        id: 1
-                    }
-                }
-            }
+            data
+        })
+    },
+    async delete(id: number) {
+        const post = await prisma.post.findUnique({
+            where: { id }
+        });
+
+        if (!allowPost(post!)) {
+            throw new HttpException("Forbidden", 403);
+        }
+
+        return prisma.post.delete({
+            where: {
+                id,
+
+            },
         })
     }
 }
-
-/*
-Cần danh sách post + user của từng post
-SELECT * FROM posts
-Lặp qua từng post
-SELECT * FROM users WHERE id = post.user_id
---> Query n + 1
-Ví dụ: có 10 posts -> 11 truy vấn
-
-Cách giải quyết
-
-1. Lấy danh sách post => SELECT * FROM posts
-Lấy ra được danh sách các userId
-
-2. Truy vấn tới bảng bảng users => SELECT * FROM users WHERE id IN(danh-sach-user)
-
-3. Ghép lại với nhau bằng logic
-*/
