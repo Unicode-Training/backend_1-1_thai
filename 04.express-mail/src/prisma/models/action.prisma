@@ -1,0 +1,10 @@
+model Action {
+    id            Int            @id @default(autoincrement())
+    name          String         @db.VarChar(100)
+    title         String         @db.VarChar(100)
+    createdAt     DateTime       @default(now()) @db.Timestamptz()
+    updatedAt     DateTime       @default(now()) @updatedAt @db.Timestamptz()
+    moduleActions ModuleAction[]
+
+    @@map("actions")
+}
