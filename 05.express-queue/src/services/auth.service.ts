@@ -35,15 +35,16 @@ export const authService = {
         await redisClient.setex(`refreshToken:${user.id}:${jti}`, ttl, accessDecoded.exp!.toString());
 
         //Gửi email cảnh báo
-        const job = await emailQueue.add(JOB_NAME.AUTH_LOGIN_NOTICE, {
+        await emailQueue.add(JOB_NAME.AUTH_LOGIN_NOTICE, {
             email: user.email,
             name: user.name,
             random: Math.random()
         }, {
-            removeOnComplete: true,
-            removeOnFail: true
+            // removeOnComplete: true,
+            // removeOnFail: true
+            attempts: 3,
+            backoff: { type: 'fixed', delay: 3000 },
         });
-        console.log(job);
 
 
         return token;

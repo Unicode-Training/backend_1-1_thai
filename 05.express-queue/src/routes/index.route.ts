@@ -6,6 +6,7 @@ import { authController } from "../controllers/auth.controller.js";
 import { loginSchema } from "../validators/auth.validator.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 import { VerifyRegister } from "../mail/VerifyRegister.js";
+import { redisClient } from "../lib/ioredis.js";
 
 const router: Router = express.Router();
 
@@ -31,6 +32,10 @@ router.post('/auth/refresh-token', authController.refreshToken);
 router.delete('/auth/revoke', authMiddleware, authController.revoke);
 router.post('/auth/forgot-password', authController.forgotPassword);
 router.patch('/auth/reset-password', authController.resetPassword);
+router.get('/cancel-job', async (req: Request, res: Response) => {
+    await redisClient.publish('email-job', 'cancelAllJob');
+    return res.json({});
+});
 
 export default router;
 

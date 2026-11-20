@@ -34,9 +34,4 @@ app.use(errorMiddleware);
 
 app.listen(PORT, () => {
     console.log(`Chạy thành công: ${PORT}`);
-    const shutdown = () => {
-        console.log('Đóng');
-    };
-    process.on("SIGINT", shutdown);
-    process.on("SIGTERM", shutdown);
 });
