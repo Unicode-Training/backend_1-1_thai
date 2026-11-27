@@ -10,7 +10,8 @@
     "start": "node dist/app.js",
     "db": "npx prisma db push && npx prisma generate",
     "seed:module": "tsx src/prisma/module-seed.ts",
-    "worker": "tsx src/workers/index.worker"
+    "worker": "tsx watch src/workers/index.worker.ts",
+    "scheduler": "tsx watch src/scheduler/index.scheduler.ts"
   },
   "keywords": [],
   "author": "",

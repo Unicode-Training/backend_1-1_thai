@@ -7,6 +7,7 @@ import { loginSchema } from "../validators/auth.validator.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 import { VerifyRegister } from "../mail/VerifyRegister.js";
 import { redisClient } from "../lib/ioredis.js";
+import { subscriptionQueue } from "../queue/subscription.queue.js";
 
 const router: Router = express.Router();
 
@@ -36,6 +37,13 @@ router.get('/cancel-job', async (req: Request, res: Response) => {
     await redisClient.publish('email-job', 'cancelAllJob');
     return res.json({});
 });
+
+router.get('/test-queue', async (req: Request, res: Response) => {
+    const job = await subscriptionQueue.add('test', {});
+    console.log(job);
+
+    return res.json({})
+})
 
 export default router;
 
