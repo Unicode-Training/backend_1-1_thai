@@ -1,0 +1,11 @@
+model Post {
+    id         Int      @id @default(autoincrement())
+    title      String   @db.VarChar(200)
+    content    String
+    postedById Int
+    postBy     User     @relation(fields: [postedById], references: [id])
+    createdAt  DateTime @default(now()) @db.Timestamptz()
+    updatedAt  DateTime @default(now()) @updatedAt @db.Timestamptz()
+
+    @@map("posts")
+}

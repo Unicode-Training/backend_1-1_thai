@@ -1,0 +1,8 @@
+export const QUEUE_NAME = {
+    EMAIL: 'EMAIL_QUEUE',
+    SUBSCRIPTION: 'SUBSCRIPTION_QUEUE'
+}
+
+export const JOB_NAME = {
+    AUTH_LOGIN_NOTICE: 'AUTH_LOGIN_NOTICE'
+}
